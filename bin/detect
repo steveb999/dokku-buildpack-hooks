@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "Hooks Buildpack"
+exit 0
