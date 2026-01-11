@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
+# Herokuish calls compile with:
+# $1 = BUILD_DIR
+# $2 = CACHE_DIR
+# $3 = ENV_DIR
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+
 echo "=== Running hook buildpack ==="
-echo "BUILD_DIR=$BUILD_DIR"
-echo "Contents of BUILD_DIR:"
+echo "BUILD_DIR is: $BUILD_DIR"
+
+# Verify contents visible
 ls -l "$BUILD_DIR"
 
-# Now check for pre-build
+# If app includes its own bin/pre-build, run it
 if [ -x "$BUILD_DIR/bin/pre-build" ]; then
-  echo "Executing pre-build from app repo…"
+  echo "Running app pre-build hook..."
   "$BUILD_DIR/bin/pre-build"
 else
-  echo "No bin/pre-build found, skipping"
+  echo "No app bin/pre-build found, skipping"
 fi
