@@ -1,0 +1,12 @@
+#!/bin/bash
+# Exit on any error
+set -e
+
+echo "=== Running hook buildpack ==="
+
+# If pre-build script exists, execute it
+if [ -x "$BUILD_DIR/bin/pre-build" ]; then
+  "$BUILD_DIR/bin/pre-build"
+else
+  echo "No bin/pre-build found, skipping"
+fi
