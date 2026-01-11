@@ -1,11 +1,14 @@
-#!/bin/bash
-# Exit on any error
+#!/usr/bin/env bash
 set -e
 
 echo "=== Running hook buildpack ==="
+echo "BUILD_DIR=$BUILD_DIR"
+echo "Contents of BUILD_DIR:"
+ls -l "$BUILD_DIR"
 
-# If pre-build script exists, execute it
+# Now check for pre-build
 if [ -x "$BUILD_DIR/bin/pre-build" ]; then
+  echo "Executing pre-build from app repo…"
   "$BUILD_DIR/bin/pre-build"
 else
   echo "No bin/pre-build found, skipping"
